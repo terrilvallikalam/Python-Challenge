@@ -7,7 +7,7 @@ bank_csv = os.path.join('..', 'Resources', 'budget_data.csv')
 # Total number of months included in the dataset
 def total_months(bank_data):
     months = int(bank_data[1])
-    Sum = sum(months)
+    all_months = sum(months)
 
 # The net total amount of Profit/Losses over the entire period
 def net_total(bank_data):
@@ -26,6 +26,15 @@ def greatest_increase(bank_data):
 def greatest_decrease(bank_data):
     decreases =int(bank_data[2])
     smallest_number = min(decreases)
+
+# Print out results
+print("Financial Analysis")
+print("-----------------------------------")
+print(f"Total Months: {all_months}")
+print(f"Total: {Sum}")
+print(f"")
+print(f"Greatest Increase In Profits: {largest_number}")
+print(f"Greatest Decrease In Profits: {smallest_number}")
 
 # Read in the CSV file
 with open(bank_csv, 'r') as csvfile:
