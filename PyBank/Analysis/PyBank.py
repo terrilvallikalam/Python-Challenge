@@ -19,8 +19,8 @@ def average_of_changes(bank_data):
     
 # The greatest increase in profits over the entire period
 def greatest_increase(bank_data):
-    increases = int(bank_data[2])
-    largest_number = max(increases)
+increases = int(bank_data[2])
+largest_number = max(increases)
 
 # The greatest decrease in losses over the entire period
 def greatest_decrease(bank_data):
