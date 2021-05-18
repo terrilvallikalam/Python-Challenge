@@ -4,64 +4,64 @@ import csv
 # Path to collect data from the Resources folder
 bank_csv = os.path.join('..', 'Resources', 'budget_data.csv')
 
+# Create lists and define variables
+date = []
+profit = []
+monthly_changes = []
+
+month = 0
+total_profit_difference = 0
+initial = 0 
+final = 0 
+monthly_change_profits = 0
+avg_change = 0
+greatest_increase_date = 0 
+greatest_increase = 0
+greatest_decrease_date = 0
+greatest_decrease = 0
+
 # Read in the CSV file
-with open(bank_csv, 'r') as csvfile:
+with open(bank_csv, newline="") as csvfile:
     # Split the data on commas
-    csvreader = csv.reader(csvfile, delimiter=',')
-    header = next(csvreader)
+    csvreader = csv.reader(csvfile, delimiter=",")
+    csv_header = next(csvreader)
+    # Months
+    for row in csvreader:
+      month = month + 1
+    # Total Profit
+      profit.append(row[1])
+      total_profit_difference = total_profit_difference + int(row[1])
+    # Final Profit
+      final = int(row[1])
+      monthly_change_profits = final - initial
+      monthly_changes.append(monthly_change_profits)
+      total_profit_difference = total_profit_difference
+      initial = final
+    # Average Change
+      avg_change = (total_profit_difference/monthly_change_profits)
+      date.append(row[0])
+    # Greatest Increase and Decrease in Profits
+      greatest_increase = max(monthly_changes)
+      greatest_increase_date = date[monthly_changes.index(greatest_increase)]
 
-# Define the function and have it accept 'bank_data' as its only parameter
-def budget(bank_data):
-    #Assign values to variables with descriptors
-    date = str(bank_data[0])
-    pl = int(bank_data[1])
+      greatest_decrease = min(monthly_changes)
+      greatest_decrease_date = date[monthly_changes.index(greatest_decrease)]
 
-    # Total number of months included in the dataset
-    total_months = len(date)
-
-    # The net total amount of Profit/Losses over the entire period
-    total_amount = sum(pl)
-
-    # The average of the changes in Profit/Losses over the entire period
-    average = total_amount / total_months
-
-    # The greatest increase in profits over the entire period
-    greatest_increase = max(pl)
-
-    # The greatest decrease in profits over the entire period
-    greatest_decrease = min(pl)
-
-
-
-# Total number of months included in the dataset
-#def total_months(bank_data):
- #   months = int(bank_data[1])
-  #  total_months = len(months)
-
-# The net total amount of Profit/Losses over the entire period
-#def net_total(bank_data):
- #   total = int(bank_data[1])
-  #  sum = sum(total)
-
-# The average of the changes in Profit/Losses over the entire period
-#def average_of_changes(bank_data):
-    
-# The greatest increase in profits over the entire period
-#def greatest_increase(bank_data):
- #   increases = int(bank_data[2])
-  #  increase = max(increases)
-    
-
-# The greatest decrease in losses over the entire period
-#def greatest_decrease(bank_data):
- #   decreases =int(bank_data[2])
-  #  smallest_number = min(decreases)
-
-# Print out results
+# Print Out Results
 print("Financial Analysis")
 print("-----------------------------------")
-print(f"Total Months: {total_months}")
-print(f"Total: {total_amount}")
-print(f"Average: {average}")
+print(f"Total Months: {month}")
+print(f"Total: ${total_profit_difference}")
+print(f"Average Change: ${avg_change}")
 print(f"Greatest Increase In Profits: {greatest_increase}")
 print(f"Greatest Decrease In Profits: {greatest_decrease}")
+
+# Print to Text
+with open ('PyBankAnalysis.txt', 'w') as text:
+  text.write("Financial Analysis")
+  text.write("-----------------------------------")
+  text.write(f"Total Months: {month}")
+  text.write(f"Total: ${total_profit_difference}")
+  text.write(f"Average Change: ${avg_change}")
+  text.write(f"Greatest Increase In Profits: {greatest_increase}")
+  text.write(f"Greatest Decrease In Profits: {greatest_decrease}")
